@@ -11,10 +11,25 @@ function App() {
     setIsDarkMode((isDarkMode) => !isDarkMode);
   }
 
+  function handleSearch(searched) {
+    const filteredItems = itemData.filter((item) =>
+      item.name.toUpperCase().includes(searched.toUpperCase())
+    );
+    setItems(filteredItems);
+  }
+
+  function handleAdd(newItem) {
+    setItems([...items, newItem]);
+  }
+
   return (
     <div className={"App " + (isDarkMode ? "dark" : "light")}>
       <Header isDarkMode={isDarkMode} onDarkModeClick={handleDarkModeClick} />
-      <ShoppingList items={items} />
+      <ShoppingList
+        items={items}
+        onSearch={handleSearch}
+        onItemFormSubmit={handleAdd}
+      />
     </div>
   );
 }
